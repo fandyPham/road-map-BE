@@ -625,7 +625,7 @@
     node-gyp-build "^4.2.2"
     resolve-from "^5.0.0"
 
-"@vercel/node@3.1.6":
+"@vercel/node@3.1.6", "@vercel/node@^3.1.6":
   version "3.1.6"
   resolved "https://registry.yarnpkg.com/@vercel/node/-/node-3.1.6.tgz#ba7c6f97ef887ffa0e5b6e607fc817591d5de08e"
   integrity sha512-PXCbN8Ocw5xdCidi8XKbBbKAoyBh2XJQJJFvImzAHM1pck7gCLYxgb7ZBcrJ/BtgMjmy/kSmSQ8FF/ctsFRK7w==
