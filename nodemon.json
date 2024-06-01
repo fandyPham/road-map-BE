@@ -1,0 +1,6 @@
+{
+  "watch": ["data-access", "routes", "utils", "domain", "index.ts"],
+  "ext": "js,ts",
+  "ignore": ["node_modules/", "build/"],
+  "exec": "npx ts-node index.ts"
+}

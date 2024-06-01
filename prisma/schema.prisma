@@ -1,0 +1,146 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Define your Prisma schema
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model users {
+  id Int @id @default(autoincrement())
+  role_id Int?
+  username String?
+  email String? @unique
+  first_name String?
+  last_name String?
+  avatar String?
+  created_at DateTime @default(now())
+  role role? @relation(fields: [role_id], references: [id])
+  session session[]
+  blogs blogs[]
+  blog_comments blog_comments[]
+  blog_reactions blog_reactions[]
+  chat_member chat_member[]
+  chat_message chat_message[]
+}
+
+model role {
+  id Int @id @default(autoincrement())
+  code String? @default("USER")
+  users users[]
+}
+
+model session {
+  id Int @id @default(autoincrement())
+  started_at DateTime @default(now())
+  access_token String
+  user_id Int
+  expired_at DateTime?
+  user users @relation(fields: [user_id], references: [id])
+}
+
+model blogs {
+  id Int @id @default(autoincrement())
+  title String?
+  description String?
+  body String? @db.Text @default("Content of the blog")
+  created_by Int
+  status String?
+  created_at DateTime @default(now())
+  last_modified DateTime? @updatedAt
+  user users @relation(fields: [created_by], references: [id])
+  blog_comments blog_comments[]
+  blog_reactions blog_reactions[]
+  blog_categories blog_categories[]
+  blog_tags blog_tags[]
+}
+
+model blog_categories {
+  id Int @id @default(autoincrement())
+  category_id Int
+  blog_id Int
+  category category @relation(fields: [category_id], references: [id])
+  blog blogs @relation(fields: [blog_id], references: [id])
+}
+
+model category {
+  id Int @id @default(autoincrement())
+  title String?
+  blog_categories blog_categories[]
+}
+
+model blog_reactions {
+  id Int @id @default(autoincrement())
+  blog_id Int
+  created_by Int
+  reaction_id Int
+  blog blogs @relation(fields: [blog_id], references: [id])
+  user users @relation(fields: [created_by], references: [id])
+  reaction reaction @relation(fields: [reaction_id], references: [id])
+}
+
+model blog_tags {
+  id Int @id @default(autoincrement())
+  tag_id Int
+  blog_id Int
+  tag tag @relation(fields: [tag_id], references: [id])
+  blog blogs @relation(fields: [blog_id], references: [id])
+}
+
+model tag {
+  id Int @id @default(autoincrement())
+  title String?
+  blog_tags blog_tags[]
+}
+
+model reaction {
+  id Int @id @default(autoincrement())
+  code String?
+  blog_reactions blog_reactions[]
+}
+
+model blog_comments {
+  id Int @id @default(autoincrement())
+  blog_id Int
+  created_by Int
+  content String? @db.Text
+  created_at DateTime @default(now())
+  last_modified DateTime? @updatedAt
+  blog blogs @relation(fields: [blog_id], references: [id])
+  user users @relation(fields: [created_by], references: [id])
+}
+
+model chat_room {
+  id Int @id @default(autoincrement())
+  name String?
+  created_at DateTime @default(now())
+  member_quantity Int?
+  chat_member chat_member[]
+  chat_message chat_message[]
+}
+
+model chat_member {
+  user_id Int
+  room_id Int
+  user users @relation(fields: [user_id], references: [id])
+  room chat_room @relation(fields: [room_id], references: [id])
+  @@id([user_id, room_id])
+}
+
+model chat_message {
+  id Int @id @default(autoincrement())
+  user_id Int
+  room_id Int
+  created_at DateTime @default(now())
+  last_modified DateTime @updatedAt
+  content String? @db.Text
+  user users @relation(fields: [user_id], references: [id])
+  room chat_room @relation(fields: [room_id], references: [id])
+}
