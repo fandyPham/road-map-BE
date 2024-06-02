@@ -9,16 +9,16 @@ const web_route_1 = __importDefault(require("./routes/web-route"));
 const cors_1 = __importDefault(require("cors"));
 const PORT = process.env.PORT || 3000;
 const app = (0, express_1.default)();
-const corsOptions = {
-    origin: "http://localhost:3000", // Replace with the origin(s) you want to allow
-    credentials: true, // Allow cookies to be included in CORS requests
-    optionsSuccessStatus: 200, // For legacy browsers
-};
-app.use((0, cors_1.default)(corsOptions));
+// const corsOptions = {
+//   origin: "http://localhost:3000", // Replace with the origin(s) you want to allow
+//   credentials: true, // Allow cookies to be included in CORS requests
+//   optionsSuccessStatus: 200, // For legacy browsers
+// };
+app.use((0, cors_1.default)());
 app.get("/", (req, res) => {
     res.send("Hello World");
 });
-app.use(express_1.default.json());
+// app.use(express.json());
 app.use("/api/dashboard", dashboard_route_1.default);
 app.use("/api/web-app", web_route_1.default);
 app.listen(PORT, () => {

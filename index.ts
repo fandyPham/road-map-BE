@@ -5,17 +5,17 @@ import cors from "cors";
 const PORT = process.env.PORT || 3000;
 const app = express();
 
-const corsOptions = {
-  origin: "http://localhost:3000", // Replace with the origin(s) you want to allow
-  credentials: true, // Allow cookies to be included in CORS requests
-  optionsSuccessStatus: 200, // For legacy browsers
-};
+// const corsOptions = {
+//   origin: "http://localhost:3000", // Replace with the origin(s) you want to allow
+//   credentials: true, // Allow cookies to be included in CORS requests
+//   optionsSuccessStatus: 200, // For legacy browsers
+// };
 
-app.use(cors(corsOptions));
+app.use(cors());
 app.get("/", (req, res) => {
   res.send("Hello World");
 });
-app.use(express.json());
+// app.use(express.json());
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/web-app", webAppRoutes);
 app.listen(PORT, () => {

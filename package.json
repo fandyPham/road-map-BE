@@ -4,10 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon --exec ts-node index.ts",
-    "build": "tsc",
     "start": "node index.js",
-    "prod": "yarn build && cross-env NODE_ENV=production node dist/index.js"
   },
   "author": "",
   "license": "ISC",
