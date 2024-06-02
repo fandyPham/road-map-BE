@@ -2,7 +2,7 @@ import express from "express";
 import dashboardRoutes from "./routes/dashboard-route";
 import webAppRoutes from "./routes/web-route";
 import cors from "cors";
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 3000;
 const app = express();
 
 const corsOptions = {
