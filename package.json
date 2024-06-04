@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node dist/index.js",
+    "start": "node index.js",
     "vercel-build": "tsc && npx prisma generate",
     "build": "tsc && npx prisma generate",
     "tsc": "tsc"
